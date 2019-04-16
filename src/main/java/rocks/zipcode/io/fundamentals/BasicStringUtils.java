@@ -1,12 +1,19 @@
 package rocks.zipcode.io.fundamentals;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class BasicStringUtils {
     /**
      * @param chars - characters used to instantiate a new string object
      * @return new String which wraps the arguments passed in
      */
     public static String getString(char[] chars) {
-        return null;
+        StringBuilder builder = new StringBuilder();
+        for (char c : chars){
+            builder.append(c);
+        }
+        return builder.toString();
     }
 
     /**
@@ -14,7 +21,11 @@ public class BasicStringUtils {
      * @return new String which wraps the arguments passed in
      */
     public static String getString(Character[] chars) {
-        return null;
+        StringBuilder builder = new StringBuilder();
+        for (Character c : chars){
+            builder.append(c);
+        }
+        return builder.toString();
     }
 
     /**
@@ -22,7 +33,17 @@ public class BasicStringUtils {
      * @return identical string with lowercase and uppercase vowels removed
      */
     public static String removeAllVowels(String string) {
-        return null;
+        List<Character> charList = string.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+        Character[] vowels = new Character[]{'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        Set<Character> vowelSet = new HashSet<>(Arrays.asList(vowels));
+        List<Character> removedCharList = new ArrayList<>();
+        for(Character c : charList){
+            if (!vowelSet.contains(c)){
+                removedCharList.add(c);
+            }
+        }
+        Character[] noVowelChars = removedCharList.toArray(new Character[removedCharList.size()]);
+        return getString(noVowelChars);
     }
 
     /**
@@ -31,6 +52,20 @@ public class BasicStringUtils {
      * @return
      */
     public static String removeSpecifiedCharacters(String string, String charactersToRemove) {
-        return null;
+        List<Character> charList = string.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+        char[] charsToRemove = charactersToRemove.toCharArray();
+        Character[] ch = new Character[charsToRemove.length];
+        for (int i = 0; i < charsToRemove.length; i++){
+            ch[i] = charsToRemove[i];
+        }
+        Set<Character> removeSet = new HashSet<>(Arrays.asList(ch));
+        List<Character> removedCharList = new ArrayList<>();
+        for(Character c : charList){
+            if (!removeSet.contains(c)){
+                removedCharList.add(c);
+            }
+        }
+        Character[] removedChars = removedCharList.toArray(new Character[removedCharList.size()]);
+        return getString(removedChars);
     }
 }
