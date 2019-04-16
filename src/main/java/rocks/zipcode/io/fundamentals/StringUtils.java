@@ -18,7 +18,7 @@ public class StringUtils {
 
         // for every set in power-set
             // uppercase indices of string using set
-        Collection<String> collection = new TreeSet<>();
+        Collection<String> collection = new ArrayList<>();
         int n = string.length();
         int max = 1 << n;
         string = string.toLowerCase();
@@ -26,20 +26,16 @@ public class StringUtils {
             char[] combination = string.toCharArray();
             for (int j = 0; j < n; j++){
                 if (((i >> j) & 1) == 1){
-                    combination[j] = (char)(combination[j] - 32);
+                    if (combination[j] != ' ') {
+                        combination[j] = (char) (combination[j] - 32);
+                    } else {
+                        combination[j] = ' ';
+                    }
                 }
             }
-            StringBuilder builder = new StringBuilder();
-            for (char c : combination){
-                if (c != ' '){
-                    builder.append(c);
-                } else {
-                    builder.append(' ');
-                }
-            }
-            ((TreeSet<String>) collection).add(builder.toString());
+            String combo = new String(combination);
+            ((ArrayList<String>) collection).add(combo);
         }
-        System.out.println(Arrays.toString(collection.toArray()));
         return collection;
     }
 
