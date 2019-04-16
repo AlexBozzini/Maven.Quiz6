@@ -18,11 +18,11 @@ public class Television {
         this.isOn = true;
     }
 
-    public void setChannel(Integer channel) {
-        if (isOn = true) {
+    public void setChannel(Integer channel) throws IllegalStateException{
+        if (isOn) {
             this.channel = TVChannel.getByOrdinal(channel);
         } else {
-            throw new IllegalStateException("TV is off");
+            throw new IllegalStateException();
         }
     }
 
