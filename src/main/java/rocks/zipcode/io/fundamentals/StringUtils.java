@@ -1,7 +1,7 @@
 package rocks.zipcode.io.fundamentals;
 
 
-import java.util.Collection;
+import java.util.*;
 
 /**
  * @author leon on 10/01/2019.
@@ -18,7 +18,29 @@ public class StringUtils {
 
         // for every set in power-set
             // uppercase indices of string using set
-        return null;
+        Collection<String> collection = new TreeSet<>();
+        int n = string.length();
+        int max = 1 << n;
+        string = string.toLowerCase();
+        for (int i = 0; i < max; i++){
+            char[] combination = string.toCharArray();
+            for (int j = 0; j < n; j++){
+                if (((i >> j) & 1) == 1){
+                    combination[j] = (char)(combination[j] - 32);
+                }
+            }
+            StringBuilder builder = new StringBuilder();
+            for (char c : combination){
+                if (c != ' '){
+                    builder.append(c);
+                } else {
+                    builder.append(' ');
+                }
+            }
+            ((TreeSet<String>) collection).add(builder.toString());
+        }
+        System.out.println(Arrays.toString(collection.toArray()));
+        return collection;
     }
 
     /**
@@ -27,7 +49,17 @@ public class StringUtils {
      * @return near-identical string whose characters at specified indices are capitalized
      */
     public static String upperCaseIndices(String string, Integer... indices) {
-        return null;
+        char[] chars = string.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        Set<Integer> indicesSet = new HashSet<>(Arrays.asList(indices));
+        for (int i = 0; i < chars.length; i++){
+            if (indicesSet.contains(i)){
+                builder.append(Character.toUpperCase(chars[i]));
+            } else {
+                builder.append(chars[i]);
+            }
+        }
+        return builder.toString();
     }
 
     /**
@@ -37,7 +69,18 @@ public class StringUtils {
      * @return near-identical string with `valueToBeInserted` inserted at `index`
      */
     public static String insertAtIndex(String stringToBeManipulated, String valueToBeInserted, Integer index) {
-        return null;
+        char[] chars = stringToBeManipulated.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < chars.length + 1; i++){
+            if (i < index){
+               builder.append(chars[i]);
+            } else if (i == index){
+                builder.append(valueToBeInserted);
+            } else {
+                builder.append(chars[i - 1]);
+            }
+        }
+        return builder.toString();
     }
 
     /**
@@ -47,6 +90,15 @@ public class StringUtils {
      * @return near-identical string with character at `index` replaced with `replacementValue`
      */
     public static String replaceAtIndex(String stringToBeManipulated, Character replacementValue, Integer index) {
-        return null;
+        char[] chars = stringToBeManipulated.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < chars.length; i++){
+            if (i != index){
+                builder.append(chars[i]);
+            } else {
+                builder.append(replacementValue);
+            }
+        }
+        return builder.toString();
     }
 }
